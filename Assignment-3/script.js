@@ -56,4 +56,28 @@ window.addEventListener('scroll', () => {
         backToTopBtn.style.display = 'none';
     }
 });
+// Fetch top headlines on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const savedQuery = localStorage.getItem('lastSearch');
+    if (savedQuery) {
+        searchInput.value = savedQuery;
+        currentQuery = `everything?q=${savedQuery}`;
+    } else {
+        currentQuery = 'top-headlines?country=us';
+    }
+    fetchNews(currentQuery);
+});
+
+// Fetch news based on search query
+searchBtn.addEventListener('click', () => {
+    const query = searchInput.value.trim();
+    if (query) {
+        localStorage.setItem('lastSearch', query); // Save query to local storage
+        currentPage = 1; // Reset to first page
+        currentQuery = `everything?q=${query}`;
+        fetchNews(currentQuery);
+    } else {
+        alert('Please enter a search term.');
+    }
+});
 
