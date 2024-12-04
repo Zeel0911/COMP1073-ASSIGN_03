@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News and Articles</title>
+    <link rel="icon" href="../img/news logo.jpeg">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>News & Articles</h1>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search news...">
+            <button id="search-btn">Search</button>
+        </div>
+        <div class="categories">
+            <button class="category-btn" data-category="business">Business</button>
+            <button class="category-btn" data-category="technology">Technology</button>
+            <button class="category-btn" data-category="sports">Sports</button>
+            <button class="category-btn" data-category="health">Health</button>
+            <button class="category-btn" data-category="science">Science</button>
+        </div>
+    </header>
+    <main id="news-container">
+        <p id="loading" class="hidden">Loading...</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 News and Articles. Powered by <a href="https://newsapi.org/" target="_blank">News API</a></p>
+    </footer>
+    <script src="../js/script.js"></script>
+</body>
+</html>
