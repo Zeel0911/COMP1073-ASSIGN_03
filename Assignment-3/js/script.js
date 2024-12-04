@@ -67,3 +67,15 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     fetchNews(currentQuery);
 });
+// Fetch news based on search query
+searchBtn.addEventListener('click', () => {
+    const query = searchInput.value.trim();
+    if (query) {
+        localStorage.setItem('lastSearch', query); // Save query to local storage
+        currentPage = 1; // Reset to first page
+        currentQuery = `everything?q=${query}`;
+        fetchNews(currentQuery);
+    } else {
+        alert('Please enter a search term.');
+    }
+});
