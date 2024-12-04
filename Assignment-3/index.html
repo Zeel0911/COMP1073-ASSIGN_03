@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News and Articles</title>
+    <link rel="icon" href="news logo.jpeg">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>News & Articles</h1>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search news...">
+            <button id="search-btn">Search</button>
+        </div>
+        
+
+        <div class="categories">
+            <button class="category-btn" data-category="business">Business</button>
+            <button class="category-btn" data-category="technology">Technology</button>
+            <button class="category-btn" data-category="sports">Sports</button>
+            <button class="category-btn" data-category="health">Health</button>
+            <button class="category-btn" data-category="science">Science</button>
+        </div>
+        <!-- Filter Section -->
+        <div class="filter-bar">
+            <label for="timeFilter">Filter by Time:</label>
+            <select id="timeFilter">
+                <option value="latest">Latest</option>
+                <option value="24hrs">Last 24 Hours</option>
+                <option value="lastWeek">Last Week</option>
+                <option value="lastMonth">Last Month</option>
+            </select>
+        </div>
+    </header>
+    <main id="news-container">
+        <p id="loading" class="hidden">Loading...</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 News and Articles. Powered by <a href="https://newsapi.org/" target="_blank">News API</a></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
