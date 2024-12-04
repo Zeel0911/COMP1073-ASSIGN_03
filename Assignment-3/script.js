@@ -28,3 +28,32 @@ loadMoreBtn.addEventListener('click', () => {
     currentPage++;
     fetchNews(currentQuery, true); // Fetch next page of articles
 });
+// Add a "Back to Top" button
+backToTopBtn.textContent = 'Back to Top';
+backToTopBtn.style.display = 'none';
+backToTopBtn.style.position = 'fixed';
+backToTopBtn.style.bottom = '20px';
+backToTopBtn.style.right = '20px';
+backToTopBtn.style.padding = '0.7rem 1rem';
+backToTopBtn.style.backgroundColor = '#0056b3';
+backToTopBtn.style.color = '#fff';
+backToTopBtn.style.border = 'none';
+backToTopBtn.style.borderRadius = '5px';
+backToTopBtn.style.cursor = 'pointer';
+backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Append buttons to the body
+document.body.appendChild(loadMoreBtn);
+document.body.appendChild(backToTopBtn);
+
+// Show or hide the "Back to Top" button based on scroll position
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'block';
+    } else {
+        backToTopBtn.style.display = 'none';
+    }
+});
+
