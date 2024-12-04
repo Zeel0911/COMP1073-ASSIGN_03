@@ -1,4 +1,4 @@
-const apiKey = '911f6a617f6149e49da337468e774278'; // Your News API key
+const apiKey = '911f6a617f6149e49da337468e774278'; // News API key
 const newsContainer = document.getElementById('news-container');
 const searchInput = document.getElementById('search');
 const searchBtn = document.getElementById('search-btn');
