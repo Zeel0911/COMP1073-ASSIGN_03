@@ -80,4 +80,68 @@ searchBtn.addEventListener('click', () => {
         alert('Please enter a search term.');
     }
 });
+// Add event listeners for category buttons
+document.querySelectorAll('.category-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category');
+        currentPage = 1; // Reset to first page
+        currentQuery = `top-headlines?country=us&category=${category}`;
+        fetchNews(currentQuery);
+    });
+});
 
+// Fetch news from News API
+function fetchNews(endpoint, append = false) {
+    if (!append) newsContainer.innerHTML = ''; // Clear previous articles if not appending
+    newsContainer.appendChild(loadingIndicator); // Show loading indicator
+
+    fetch(`https://newsapi.org/v2/${endpoint}&page=${currentPage}&pageSize=10&apiKey=${apiKey}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            newsContainer.removeChild(loadingIndicator); // Remove loading indicator
+            displayNews(data.articles, append);
+            if (data.totalResults > currentPage * 10) {
+                loadMoreBtn.style.display = 'block';
+            } else {
+                loadMoreBtn.style.display = 'none';
+            }
+        })
+        .catch(error => {
+            newsContainer.removeChild(loadingIndicator); // Remove loading indicator
+            const errorMsg = document.createElement('p');
+            errorMsg.textContent = `Failed to fetch news: ${error.message}`;
+            errorMsg.style.color = 'red';
+            errorMsg.style.textAlign = 'center';
+            newsContainer.appendChild(errorMsg);
+        });
+}
+
+// Display articles
+function displayNews(articles, append = false) {
+    if (!articles || articles.length === 0) {
+        const noArticlesMsg = document.createElement('p');
+        noArticlesMsg.textContent = 'No articles found.';
+        noArticlesMsg.style.textAlign = 'center';
+        newsContainer.appendChild(noArticlesMsg);
+        return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    articles.forEach(article => {
+        // Create clickable news block
+        const newsCard = document.createElement('a');
+        newsCard.className = 'article';
+        newsCard.href = article.url; // Link to the full article
+        newsCard.target = '_blank'; // Open in a new tab
+        newsCard.rel = 'noopener noreferrer'; // Security for external links
+
+        // Create image
+        const img = document.createElement('img');
+        img.src = article.urlToImage || 'https://via.placeholder.com/300x200?text=No+Image';
+        img.alt = 'News Image';
