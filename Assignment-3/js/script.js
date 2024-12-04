@@ -47,3 +47,23 @@ backToTopBtn.addEventListener('click', () => {
 // Append buttons to the body
 document.body.appendChild(loadMoreBtn);
 document.body.appendChild(backToTopBtn);
+// Show or hide the "Back to Top" button based on scroll position
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'block';
+    } else {
+        backToTopBtn.style.display = 'none';
+    }
+});
+
+// Fetch top headlines on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const savedQuery = localStorage.getItem('lastSearch');
+    if (savedQuery) {
+        searchInput.value = savedQuery;
+        currentQuery = `everything?q=${savedQuery}`;
+    } else {
+        currentQuery = 'top-headlines?country=us';
+    }
+    fetchNews(currentQuery);
+});
