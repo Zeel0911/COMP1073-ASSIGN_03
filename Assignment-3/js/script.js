@@ -115,3 +115,37 @@ function fetchNews(endpoint, append = false) {
             newsContainer.innerHTML = `<p style="text-align: center; color: red;">Failed to fetch news: ${error.message}</p>`;
         });
 }
+// Display articles
+function displayNews(articles, append = false) {
+    if (!articles || articles.length === 0) {
+        newsContainer.innerHTML = '<p style="text-align: center;">No articles found.</p>';
+        return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    articles.forEach(article => {
+        // Create clickable news block
+        const newsCard = document.createElement('a');
+        newsCard.className = 'article';
+        newsCard.href = article.url; // Link to the full article
+        newsCard.target = '_blank'; // Open in a new tab
+        newsCard.rel = 'noopener noreferrer'; // Security for external links
+
+        newsCard.innerHTML = `
+            <img src="${article.urlToImage || 'https://via.placeholder.com/300x200?text=No+Image'}" alt="News Image">
+            <div class="content">
+                <h2>${article.title}</h2>
+                <p>${article.description || 'No description available.'}</p>
+            </div>
+        `;
+        fragment.appendChild(newsCard);
+    });
+
+    if (append) {
+        newsContainer.appendChild(fragment); // Append to existing articles
+    } else {
+        newsContainer.innerHTML = ''; // Clear container and add new content
+        newsContainer.appendChild(fragment);
+    }
+}
