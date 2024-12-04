@@ -21,6 +21,16 @@
             <button class="category-btn" data-category="health">Health</button>
             <button class="category-btn" data-category="science">Science</button>
         </div>
+        <!-- Filter Section -->
+        <div class="filter-bar">
+            <label for="timeFilter">Filter by Time:</label>
+            <select id="timeFilter">
+                <option value="latest">Latest</option>
+                <option value="24hrs">Last 24 Hours</option>
+                <option value="lastWeek">Last Week</option>
+                <option value="lastMonth">Last Month</option>
+            </select>
+        </div>
     </header>
     <main id="news-container">
         <p id="loading" class="hidden">Loading...</p>
