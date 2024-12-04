@@ -79,3 +79,39 @@ searchBtn.addEventListener('click', () => {
         alert('Please enter a search term.');
     }
 });
+// Add event listeners for category buttons
+document.querySelectorAll('.category-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category');
+        currentPage = 1; // Reset to first page
+        currentQuery = `top-headlines?country=us&category=${category}`;
+        fetchNews(currentQuery);
+    });
+});
+
+// Fetch news from News API
+function fetchNews(endpoint, append = false) {
+    if (!append) newsContainer.innerHTML = ''; // Clear previous articles if not appending
+    newsContainer.appendChild(loadingIndicator); // Show loading indicator
+
+    fetch(`https://newsapi.org/v2/${endpoint}&page=${currentPage}&pageSize=10&apiKey=${apiKey}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            newsContainer.removeChild(loadingIndicator); // Remove loading indicator
+            displayNews(data.articles, append);
+            if (data.totalResults > currentPage * 10) {
+                loadMoreBtn.style.display = 'block';
+            } else {
+                loadMoreBtn.style.display = 'none';
+            }
+        })
+        .catch(error => {
+            newsContainer.removeChild(loadingIndicator); // Remove loading indicator
+            newsContainer.innerHTML = `<p style="text-align: center; color: red;">Failed to fetch news: ${error.message}</p>`;
+        });
+}
